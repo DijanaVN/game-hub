@@ -14,6 +14,7 @@ export interface Game {
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
+  rating_top: number;
 }
 
 const useGames = (
@@ -29,6 +30,7 @@ const useGames = (
         parent_platforms: gameQuery.platform?.id,
         ordering: gameQuery.sortOrder,
         search: gameQuery.searchText,
+        rating_top: gameQuery,
       },
     },
     [gameQuery]

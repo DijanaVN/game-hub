@@ -11,6 +11,7 @@ import SortSelector from "./components/SortSelector";
 import GameHeading from "./components/GameHeading";
 
 export interface GameQuery {
+  emojis: any;
   genre: Genre | null;
   platform: Platform | null;
   sortOrder: string;

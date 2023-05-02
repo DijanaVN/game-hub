@@ -5,7 +5,9 @@ import {
   Image,
   Spinner,
   Button,
+  Heading,
 } from "@chakra-ui/react";
+import { GameQuery } from "../App";
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import GameCardContainer from "./GamecardContainer";
@@ -19,40 +21,51 @@ interface Props {
 const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   const { data, isLoading, error } = useGenres();
   const skeletons = [1, 2, 3, 4, 5, 6];
+
   if (error) return null;
   //   if (isLoading) return <Spinner />;
   return (
-    <List>
-      {isLoading &&
-        skeletons.map((skeleton) => (
-          <GameCardContainer key={skeleton}>
-            <ListItem paddingY={2} key={skeleton}>
-              <GenreListSkeleton />
+    <>
+      <Heading fontSize={28} marginBottom={2}>
+        Genres
+      </Heading>
+      <List>
+        {isLoading &&
+          skeletons.map((skeleton) => (
+            <GameCardContainer key={skeleton}>
+              <ListItem paddingY={2} key={skeleton}>
+                <GenreListSkeleton />
+              </ListItem>
+            </GameCardContainer>
+          ))}
+        {data.map((genre) => (
+          <GameCardContainer key={genre.id}>
+            <ListItem paddingY={2}>
+              <HStack>
+                <Image
+                  boxSize="32px"
+                  borderRadius={8}
+                  src={getCroppedImageUrl(genre.image_background)}
+                  objectFit="cover"
+                />
+                <Button
+                  whiteSpace={"normal"}
+                  textAlign="left"
+                  fontWeight={
+                    genre.id === selectedGenre?.id ? "bold" : "normal"
+                  }
+                  onClick={() => onSelectGenre(genre)}
+                  variant="link"
+                  fontSize="lg"
+                >
+                  {genre.name}
+                </Button>
+              </HStack>
             </ListItem>
           </GameCardContainer>
         ))}
-      {data.map((genre) => (
-        <GameCardContainer key={genre.id}>
-          <ListItem paddingY={2}>
-            <HStack>
-              <Image
-                boxSize="32px"
-                borderRadius={8}
-                src={getCroppedImageUrl(genre.image_background)}
-              />
-              <Button
-                fontWeight={genre.id === selectedGenre?.id ? "bold" : "normal"}
-                onClick={() => onSelectGenre(genre)}
-                variant="link"
-                fontSize="lg"
-              >
-                {genre.name}
-              </Button>
-            </HStack>
-          </ListItem>
-        </GameCardContainer>
-      ))}
-    </List>
+      </List>
+    </>
   );
 };
 

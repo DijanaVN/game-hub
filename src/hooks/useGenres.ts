@@ -1,3 +1,4 @@
+// import useData from "./useData";
 import genres from "../components/data/genres";
 
 export interface Genre {

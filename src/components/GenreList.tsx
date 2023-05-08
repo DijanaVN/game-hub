@@ -7,7 +7,6 @@ import {
   Button,
   Heading,
 } from "@chakra-ui/react";
-import { GameQuery } from "../App";
 import useGenres, { Genre } from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import GameCardContainer from "./GamecardContainer";
@@ -38,7 +37,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
               </ListItem>
             </GameCardContainer>
           ))}
-        {data.map((genre) => (
+        {data?.results?.map((genre) => (
           <GameCardContainer key={genre.id}>
             <ListItem paddingY={2}>
               <HStack>

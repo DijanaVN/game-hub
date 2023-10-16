@@ -5,6 +5,7 @@ import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardContainer from "./GamecardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
+import ScrollToTopButton from "./ScrollToTheTopButton";
 
 const GameGrid = () => {
   const {
@@ -56,6 +57,7 @@ const GameGrid = () => {
           </React.Fragment>
         ))}
       </SimpleGrid>
+      <ScrollToTopButton />
       {hasNextPage && (
         <Button onClick={() => fetchNextPage()} marginY={5}>
           {isFetchingNextPage ? "Loading..." : "Load More"}

@@ -1,9 +1,8 @@
-import { Button, SimpleGrid, Spinner, Text } from "@chakra-ui/react";
+import { Button, SimpleGrid, Spinner, Text, Box } from "@chakra-ui/react";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
-import GameCardContainer from "./GamecardContainer";
 import GameCardSkeleton from "./GameCardSkeleton";
 import ScrollToTopButton from "./ScrollToTheTopButton";
 
@@ -37,9 +36,19 @@ const GameGrid = () => {
       >
         {isLoading &&
           skeletons.map((skeleton) => (
-            <GameCardContainer key={skeleton}>
+            <Box
+              _hover={{
+                transform: "scale(1.1)",
+                transitionDuration: "0.5s",
+                transitionTimingFunction: "ease-in-out",
+                cursor: "pointer",
+              }}
+              borderRadius={10}
+              overflow="hidden"
+              key={skeleton}
+            >
               <GameCardSkeleton />
-            </GameCardContainer>
+            </Box>
           ))}
         {data?.pages.map((page, index) => (
           <React.Fragment key={index}>
@@ -49,9 +58,19 @@ const GameGrid = () => {
               </Text>
             ) : (
               page.results.map((game) => (
-                <GameCardContainer key={game.id}>
+                <Box
+                  _hover={{
+                    transform: "scale(1.1)",
+                    transitionDuration: "0.5s",
+                    transitionTimingFunction: "ease-in-out",
+                    cursor: "pointer",
+                  }}
+                  borderRadius={10}
+                  overflow="hidden"
+                  key={game.id}
+                >
                   <GameCard game={game} />
-                </GameCardContainer>
+                </Box>
               ))
             )}
           </React.Fragment>

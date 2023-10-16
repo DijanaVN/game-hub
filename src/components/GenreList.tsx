@@ -6,11 +6,11 @@ import {
   Spinner,
   Button,
   Heading,
+  Box,
 } from "@chakra-ui/react";
 import useGenres from "../hooks/useGenres";
 import getCroppedImageUrl from "../services/image-url";
 import useGameQueryStore from "../store";
-import GameCardContainer from "./GamecardContainer";
 import GenreListSkeleton from "./GenreListSkeleton";
 
 const GenreList = () => {
@@ -29,35 +29,45 @@ const GenreList = () => {
       <List>
         {isLoading &&
           skeletons.map((skeleton) => (
-            <GameCardContainer key={skeleton}>
+            <Box
+              _hover={{
+                transform: "scale(1.1)",
+                transitionDuration: "0.5s",
+                transitionTimingFunction: "ease-in-out",
+                cursor: "pointer",
+              }}
+              borderRadius={10}
+              overflow="hidden"
+              key={skeleton}
+            >
               <ListItem paddingY={2} key={skeleton}>
                 <GenreListSkeleton />
               </ListItem>
-            </GameCardContainer>
+            </Box>
           ))}
         {data?.results?.map((genre) => (
-          <GameCardContainer key={genre.id}>
-            <ListItem paddingY={2}>
-              <HStack>
-                <Image
-                  boxSize="32px"
-                  borderRadius={8}
-                  src={getCroppedImageUrl(genre.image_background)}
-                  objectFit="cover"
-                />
-                <Button
-                  whiteSpace={"normal"}
-                  textAlign="left"
-                  fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
-                  onClick={() => setGenreId(genre.id)}
-                  variant="link"
-                  fontSize="lg"
-                >
-                  {genre.name}
-                </Button>
-              </HStack>
-            </ListItem>
-          </GameCardContainer>
+          // <GameCardContainer key={genre.id}>
+          <ListItem paddingY={2}>
+            <HStack>
+              <Image
+                boxSize="32px"
+                borderRadius={8}
+                src={getCroppedImageUrl(genre.image_background)}
+                objectFit="cover"
+              />
+              <Button
+                whiteSpace={"normal"}
+                textAlign="left"
+                fontWeight={genre.id === selectedGenreId ? "bold" : "normal"}
+                onClick={() => setGenreId(genre.id)}
+                variant="link"
+                fontSize="lg"
+              >
+                {genre.name}
+              </Button>
+            </HStack>
+          </ListItem>
+          // </GameCardContainer>
         ))}
       </List>
     </>
